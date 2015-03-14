@@ -15,7 +15,7 @@
        android:id="@+id/username_label"
        android:text="@string/username_label"
        android:layout_width="0dp"
-        android:layout_weight="25"
+       android:layout_weight="25"
        android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/username_input"
