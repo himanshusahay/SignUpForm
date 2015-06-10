@@ -1,17 +1,56 @@
 package eduhsahay.wpi.signupform;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class LoginActivity extends ActionBarActivity {
+
+    private static final String TAG = "LoginActivity";
+
+    Button mSubmitButton;
+    EditText mUserName;
+    EditText mPasswordInput;
+    EditText mConfirmInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mSubmitButton = (Button) findViewById(R.id.submit_button);
+        mUserName = (EditText) findViewById(R.id.username_input);
+        mPasswordInput = (EditText) findViewById(R.id.password_input);
+        mConfirmInput = (EditText) findViewById(R.id.confirm_input);
+
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = mUserName.getText().toString();
+                String password = mPasswordInput.getText().toString();
+                String confirmation = mConfirmInput.getText().toString();
+
+                if(password.equals(confirmation)) {
+                    User newUser = new User(username, password);
+                    // Create new user after password success during account creation
+
+                    // Used to move between activities
+                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                    //Instead of LoginActivity.this, could also have used this.super
+                    //Intent is envelope for sending message between activities
+                    i.putExtra(HomeActivity.EXTRA, newUser); //key, value pair
+                    startActivity(i);
+                }
+            }
+        });
+
     }
 
 
